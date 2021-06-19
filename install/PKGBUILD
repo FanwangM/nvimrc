@@ -1,0 +1,21 @@
+# vim:ft=bash
+pkgname=neovim-meta
+pkgver=0.5.0
+pkgrel=1
+pkgdesc='Neovim meta-package'
+arch=('any')
+url='https://github.com/msricher/nvim'
+depends=(
+    # Neovim (probably needs neovim-nightly-git)
+    neovim
+    # Language APIs
+    python-pynvim
+    # Package managers
+    npm
+    yarn
+    python-pip
+    # Language servers
+    ccls
+    julia
+    texlab
+)

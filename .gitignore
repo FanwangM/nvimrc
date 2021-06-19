@@ -1,0 +1,6 @@
+# neovim
+plugin/
+# pkgbuild
+install/pkg/
+install/src/
+install/neovim-meta-*.pkg.*

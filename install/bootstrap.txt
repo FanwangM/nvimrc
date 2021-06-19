@@ -1,0 +1,6 @@
+*------------------------------------------------------------------*
+| Neovim is downloading and setting up plugins.                    |
+|                                                                  |
+| The installation will complete the next time you boot up Neovim. |
+| Run `:LspInstallAll` to install the managed language servers.    |
+*------------------------------------------------------------------*
