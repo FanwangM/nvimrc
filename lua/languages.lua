@@ -15,6 +15,7 @@ vim.g.managed_lsp_servers = {
     'bash',
     'cmake',
     'css',
+    'cpp',
     'fortran',
     'html',
     'json',
