@@ -8,14 +8,8 @@ url='https://github.com/msricher/nvim'
 depends=(
     # Neovim (probably needs neovim-nightly-git)
     neovim
-    # Language APIs
-    python-pynvim
-    # Package managers
+    # LSP server package managers
     npm
     yarn
     python-pip
-    # Language servers
-    ccls
-    julia
-    texlab
 )

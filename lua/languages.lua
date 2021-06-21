@@ -10,41 +10,17 @@ end
 local lspconfig = require('lspconfig')
 local lspinstall = require('lspinstall')
 
--- Servers managed by LspInstall
-vim.g.managed_lsp_servers = {
-    'bash',
-    'cmake',
-    'css',
-    'cpp',
-    'fortran',
-    'html',
-    'json',
-    'latex',
-    'lua',
-    'python',
-    'vim',
-    'yaml',
-}
-
--- Locally installed servers
-vim.g.local_lsp_servers = {
-    'julials',
-}
-
 -- Lua server config
 local lua_settings = {
     Lua = {
         runtime = {
-            -- Use LuaJIT
             version = 'LuaJIT',
             path = vim.split(package.path, ';'),
         },
         diagnostics = {
-            -- Get the language server to recognize the `vim` global
             globals = {'vim'},
         },
         workspace = {
-            -- Make the server aware of Neovim runtime files
             library = {
                 [vim.fn.expand('$VIMRUNTIME/lua')] = true,
                 [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
@@ -120,7 +96,7 @@ local function setup_servers()
     lspinstall.setup()
     -- Add servers managed by LspInstall
     local servers = lspinstall.installed_servers()
-    -- Add manually installed servers if executables exist
+    -- Add manually installed servers
     for _, server in pairs(vim.g.local_lsp_servers) do
         table.insert(servers, server)
     end
@@ -148,29 +124,7 @@ setup_servers()
 ----------------
 
 require('nvim-treesitter.configs').setup {
-    ensure_installed = {
-        'bash',
-        'bibtex',
-        'c',
-        'cpp',
-        'css',
-        'fortran',
-        'html',
-        'json',
-        'julia',
-        'latex',
-        'lua',
-        'python',
-        'regex',
-        'rst',
-        'toml',
-        'yaml',
-    },
-    highlight = {
-        enable = true,
-        use_languagetree = true,
-    },
-    indent = {
-        enable = true,
-    },
+    ensure_installed = vim.g.managed_treesitter_servers,
+    highlight = { enable = true, use_languagetree = true },
+    indent = { enable = true },
 }

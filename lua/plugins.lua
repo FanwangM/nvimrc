@@ -1,46 +1,37 @@
 -- Module
 local plugins = { }
 
--- Declare plugins
+-- Function to declare plugins
 local function setup()
     local use = require('packer').use
 
     -- Packer manages itself
     use 'wbthomason/packer.nvim'
 
-    -- Neovim Lua libraries
-    use 'nvim-lua/plenary.nvim'
-    use 'nvim-lua/popup.nvim'
-
-    -- Hail tpope
+    -- tpope plugins -- must haves
     use 'tpope/vim-commentary'
     use 'tpope/vim-eunuch'
     use 'tpope/vim-fugitive'
     use 'tpope/vim-repeat'
     use 'tpope/vim-surround'
-    use 'tpope/vim-unimpaired'
 
-    -- Colorschemes
-    use 'marko-cerovac/material.nvim'
-    use 'rafamadriz/neon'
-    use { 'npxbr/gruvbox.nvim',
-    requires = { 'rktjmp/lush.nvim' } }
+    -- Colorscheme
+    use 'sainnhe/gruvbox-material'
 
     -- Statusline
-    use { 'hoob3rt/lualine.nvim',
-    requires = { 'tpope/vim-fugitive' } }
+    use { 'hoob3rt/lualine.nvim', requires = { 'tpope/vim-fugitive' } }
 
     -- Git sign column info
-    use { 'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' } }
+    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
     -- Telescope
-    use { 'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' } }
+    use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' } }
+
+    -- Completion
+    use 'hrsh7th/nvim-compe'
 
     -- Dashboard
-    use { 'glepnir/dashboard-nvim',
-    requires = { 'nvim-telescope/telescope.nvim' } }
+    use 'glepnir/dashboard-nvim'
 
     -- Utilities
     use 'jghauser/mkdir.nvim'
@@ -55,22 +46,21 @@ local function setup()
     use 'lambdalisue/fern-ssh'
 
     -- language support
-    use 'neovim/nvim-lspconfig'
-    use { 'msricher/nvim-lspinstall', branch = 'fortran' }
-    use { 'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate' }
     use 'juliaeditorsupport/julia-vim'
-    use 'euclidianace/betterlua.vim'
+    use 'neovim/nvim-lspconfig'
+    use 'kabouzeid/nvim-lspinstall'
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-    -- Completion
-    use 'hrsh7th/nvim-compe'
 end
 
--- Set up environment
-local packer_url = 'https://github.com/wbthomason/packer.nvim'
-local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+-- Function to load Packer
+function plugins.startup()
+    require('packer').startup(setup)
+end
 
 -- Check if the Packer plugin directory exists
+local packer_url = 'https://github.com/wbthomason/packer.nvim'
+local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
     -- If it doesn't exist, clone the Packer git repo and install it
     vim.fn.system { 'git', 'clone', packer_url, packer_path }
@@ -79,15 +69,6 @@ if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
     plugins.bootstrap = true
 else
     plugins.bootstrap = false
-end
-
--- Load Packer
-require('packer').startup(setup)
-
--- If Packer was just bootstrapped, run sync and print message
-if plugins.bootstrap then
-    require('packer').sync()
-    print('Plugins configured. Restart nvim to finish installation.')
 end
 
 -- Return module

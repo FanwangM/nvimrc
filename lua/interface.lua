@@ -9,15 +9,17 @@ end
 -- Colorscheme --
 -----------------
 
-vim.cmd 'colorscheme gruvbox'
+vim.g.gruvbox_material_palette = 'original'
+vim.g.gruvbox_material_background = 'medium'
+vim.cmd 'colorscheme gruvbox-material'
 
------------------
--- Status Line --
------------------
+----------------
+-- Statusline --
+----------------
 
 require('lualine').setup {
     options = {
-        theme = 'gruvbox',
+        theme = 'gruvbox_material',
         icons_enabled = false,
         component_separators = { '', '' },
         section_separators = { '', '' },
@@ -42,7 +44,7 @@ require('lualine').setup {
 }
 
 -----------------
--- Sign Column --
+-- Sign column --
 -----------------
 
 require('gitsigns').setup {
@@ -56,14 +58,40 @@ require('gitsigns').setup {
     },
 }
 
+
+----------------
+-- Completion --
+----------------
+
+require('compe').setup {
+    enabled = true,
+    autocomplete = true,
+    debug = false,
+    min_length = 1,
+    preselect = 'enable',
+    throttle_time = 80,
+    source_timeout = 200,
+    resolve_timeout = 800,
+    incomplete_delay = 400,
+    max_abbr_width = 100,
+    max_kind_width = 100,
+    max_menu_width = 100,
+    documentation = true,
+    source = {
+        path = true,
+        buffer = true,
+        calc = true,
+        nvim_lsp = true,
+        nvim_lua = true,
+    },
+}
+
 ---------------
 -- Dashboard --
 ---------------
 
--- Menu item space + map leader key --------------------------------------------
 local dashboard_line = '                                    ' .. vim.g.mapleader
 
--- Menu items
 vim.g.dashboard_custom_section = {
     a = {
         description = {'New File    ' .. dashboard_line .. ' f n'},
@@ -101,7 +129,6 @@ vim.g.dashboard_custom_header = {
     '                              ""',
 }
 
--- Footer with version info
 vim.g.dashboard_custom_footer = { vim.fn.NvimVersion() }
 
 -- Buffer local mappings
